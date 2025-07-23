@@ -40,7 +40,7 @@ class NoteControllerTest {
 
         ResponseEntity<Note> response = noteController.createNote(input);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
         assertEquals("Test", response.getBody().getTitle());
         verify(noteRepository, times(1)).save(input);
     }
@@ -62,7 +62,7 @@ class NoteControllerTest {
 
         ResponseEntity<?> response = noteController.updateNote(noteId, updatedInput);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
         Note updatedNote = (Note) response.getBody();
         assertEquals("New Title", updatedNote.getTitle());
         assertEquals("New Content", updatedNote.getContent());
@@ -79,7 +79,7 @@ class NoteControllerTest {
 
         ResponseEntity<?> response = noteController.updateNote(noteId, updatedInput);
 
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(404, response.getStatusCode().value());
         verify(noteRepository, never()).save(any());
     }
 
@@ -90,7 +90,7 @@ class NoteControllerTest {
 
         ResponseEntity<Void> response = noteController.deleteNote(noteId);
 
-        assertEquals(204, response.getStatusCodeValue());
+        assertEquals(204, response.getStatusCode().value());
         verify(noteRepository, times(1)).deleteById(noteId);
     }
 
@@ -101,7 +101,7 @@ class NoteControllerTest {
 
         ResponseEntity<Void> response = noteController.deleteNote(noteId);
 
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(404, response.getStatusCode().value());
         verify(noteRepository, never()).deleteById(noteId);
     }
 
@@ -123,7 +123,7 @@ void testGetAllNotes() {
 
     ResponseEntity<?> response = noteController.getAllNotes();
 
-    assertEquals(200, response.getStatusCodeValue());
+    assertEquals(200, response.getStatusCode().value());
     List<?> returnedNotes = (List<?>) response.getBody();
     assertEquals(2, returnedNotes.size());
 
